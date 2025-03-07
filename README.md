@@ -59,3 +59,19 @@ Filtres optionnels en query params:
 - limit (défaut: 10)
 - page (défaut: 1)
 
+### GET /api/v1/rhum
+Permet de récupérer la liste des rhums.
+Nécessite un token dans le header Authorization.
+
+Filtres optionnels en query params:
+- name
+- type
+- pays
+- volume
+- degre
+- distillerie
+- categories
+- embouteilleur
+- limit (défaut: 10)
+- page (défaut: 1)
+
