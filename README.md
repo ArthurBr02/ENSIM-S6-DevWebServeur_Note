@@ -45,3 +45,17 @@ Données à envoyer en format x-www-form-urlencoded:
 Permet de récupérer les informations de l'utilisateur connecté.
 Nécessite un token dans le header Authorization.
 
+### GET /api/v1/ingredient
+Permet de récupérer la liste des ingrédients.
+Nécessite un token dans le header Authorization.
+
+### POST /api/v1/ingredient
+Permet de créer un ingrédient.
+Nécessite un token dans le header Authorization.
+
+Filtres optionnels en query params: 
+- name
+- type
+- limit (défaut: 10)
+- page (défaut: 1)
+

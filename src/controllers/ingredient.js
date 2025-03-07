@@ -28,8 +28,8 @@ const create = async (ingredientDTO) => {
     });
 }
 
-const getList = async () => {
-    return ingredientService.getList();
+const getList = async (params) => {
+    return ingredientService.getList(params);
 }
 
 module.exports = {
