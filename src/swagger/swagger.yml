@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: Swagger Pokemon - OpenAPI 3.0
+  description: API REST pour la gestion des pokémons  
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:3000/api/v1/pokemons
+    description: Serveur local
+    variables:
+      port:
+        default: "3000"
+        description: Port du serveur
+tags:
+  - name: Pokemon
+    description: Récupération des pokémons
+    externalDocs:
+      description: En savoir plus
+      url: https://www.pokepedia.fr/Pok%C3%A9mon_Wiki
+paths:
+  /pokemons:
+    get:
+      tags:
+        - pokemons
+      summary: Retourne la liste des pokémons
+      description: Retourne la liste des pokémons
+      operationId: getPokemonList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pokemon'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pokemon'
+        '400':
+          description: Invalid status value
+  /pokemons/{pokemonId}:
+    get: 
+      tags: 
+        - pokemons
+      summary: Retourne un pokémon par son ID
+      description: Retourne un pokémon par son ID
+      operationId: getPokemonById
+      parameters:
+        - name: pokemonId
+          in: path
+          description: ID du pokémon à retourner
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pokémon non trouvé
+  /pokemons/search:
+    get:
+      tags:
+        - pokemons
+      summary: Recherche de pokémon
+      description: Recherche de pokémon
+      operationId: getPokemonByFilter
+      parameters:
+        - name: name
+          in: query
+          description: Nom français du pokémon
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: Dardargnan
+        - name: type
+          in: query
+          description: Type du pokémon
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: Bug
+        - name: typeS
+          in: query
+          description: Type secondaire du pokémon
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: Poison
+        - name: hp
+          in: query
+          description: HP du pokémon
+          required: false
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            default: 65
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pokemon'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pokemon'
+        '400':
+          description: Invalid status value
+components:
+  schemas:
+    Pokemon:
+      type: object
+      properties: 
+        id: 
+          type: integer
+          format: int64
+          example: 15
+        name:
+          type: object
+          properties:
+            english:
+              type: string
+              example: Beedrill
+            japanese:
+              type: string
+              example: スピアー
+            chinese:
+              type: string
+              example: 大针蜂
+            french:
+              type: string
+              example: Dardargnan
+        type:
+          type: array
+          items:
+            type: string
+          example: 
+            - Bug
+            - Poison
+        base:
+          type: object
+          properties:
+            HP:
+              type: integer
+              example: 65
+            Attack:
+              type: integer
+              example: 90
+            Defense:
+              type: integer
+              example: 40
+            SpAttack:
+              type: integer
+              example: 45
+            SpDefense:
+              type: integer
+              example: 80
+            Speed:
+              type: integer
+              example: 75
+  requestBodies:
+    Pokemon:
+      description: Pokemon object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pokemon'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Pokemon'
