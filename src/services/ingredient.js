@@ -25,7 +25,16 @@ const create = async (ingredientDTO) => {
     });
 }
 
+const findByIds = async (ids) => {
+    return db.Ingredient.find({
+        _id: {
+            $in: ids
+        }
+    });
+}
+
 module.exports = {
     getList,
-    create
+    create,
+    findByIds
 }

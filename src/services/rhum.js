@@ -40,6 +40,11 @@ const getList = async (params) => {
     return db.Rhum.find(filter).skip(skip).limit(limit);
 }
 
+const findById = async (id) => {
+    return db.Rhum.findById(id);
+}
+
 module.exports = {
     getList,
+    findById
 }
