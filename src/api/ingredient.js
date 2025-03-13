@@ -9,7 +9,11 @@ router.post('/', authenticateToken, async function(req, res) {
     const ingredientDTO = req.body;
 
     ingredientController.create(ingredientDTO).then((data) => {
-        res.send(data);
+        let code = data?.code;
+        if (code === undefined) {
+            code = 200;
+        }
+        res.status(code).send(data);
     });
 });
 
@@ -27,7 +31,11 @@ router.get('/', authenticateToken, async function(req, res) {
     };
 
     ingredientController.getList(params).then((data) => {
-        res.send(data);
+        let code = data?.code;
+        if (code === undefined) {
+            code = 200;
+        }
+        res.status(code).send(data);
     });
 });
 

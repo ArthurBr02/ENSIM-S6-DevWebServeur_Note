@@ -31,7 +31,11 @@ router.get('/', authenticateToken, async function(req, res) {
     };
 
     rhumController.getList(params).then((data) => {
-        res.send(data);
+        let code = data?.code;
+        if (code === undefined) {
+            code = 200;
+        }
+        res.status(code).send(data);
     });
 });
 

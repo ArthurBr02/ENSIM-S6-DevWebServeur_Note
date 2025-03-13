@@ -9,7 +9,11 @@ router.post('/register', async function(req, res) {
     const userDTO = req.body;
 
     userController.register(userDTO).then((data) => {
-        res.send(data);
+        let code = data?.code;
+        if (code === undefined) {
+            code = 200;
+        }
+        res.status(code).send(data);
     });
 });
 

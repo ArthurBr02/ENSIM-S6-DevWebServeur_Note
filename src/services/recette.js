@@ -5,11 +5,19 @@ const utils = require("../core/utils");
 const getList = async (params) => {
     let filter = {};
     if (params.name !== undefined) {
-        filter.name = params.name;
+        filter.nom = params.name;
+    }
+
+    if (params.private !== undefined) {
+        filter.private = params.private;
     }
 
     if (params.type !== undefined) {
         filter.type = params.type;
+    }
+
+    if (params.userId !== undefined) {
+        filter.userId = params.userId;
     }
 
     // Pagination
@@ -23,6 +31,7 @@ const create = async (recetteDTO) => {
     /*
     Dans le DTO on a:
     - id du rhum à ajouter
+    - userId de l'utilisateur
     - une liste d'id d'ingrédients
     - un nom de recette
     - un champ d'instructions
@@ -40,6 +49,7 @@ const create = async (recetteDTO) => {
     }
 
     let creationData = {
+        userId: recetteDTO.userId,
         nom: recetteDTO.name,
         instructions: recetteDTO.instructions,
         ingredients: ingredients,
@@ -57,7 +67,43 @@ const create = async (recetteDTO) => {
     });
 }
 
+const findById = async (id) => {
+    return db.Recette.findById(id);
+}
+
+const update = async (recetteDTO) => {
+    let rhum = await rhumService.findById(recetteDTO.rhumId);
+    if (rhum === null) {
+        return utils.asyncError("Rhum not found");
+    }
+
+    let ingredients = await findByIds(JSON.parse(recetteDTO.ingredientIds));
+    if (ingredients === null || ingredients.length === 0) {
+        return utils.asyncError("Ingredients not found");
+    }
+
+    let creationData = {
+        userId: recetteDTO.userId,
+        nom: recetteDTO.name,
+        instructions: recetteDTO.instructions,
+        ingredients: ingredients,
+        rhum: rhum,
+        private: recetteDTO.private
+    };
+
+    let data = db.Recette.findByIdAndUpdate(recetteDTO.id, creationData);
+
+    data.then((result) => {
+        return result;
+    }).catch((err) => {
+        console.log(err);
+        return err;
+    });
+}
+
 module.exports = {
     getList,
-    create
+    create,
+    findById,
+    update
 }
