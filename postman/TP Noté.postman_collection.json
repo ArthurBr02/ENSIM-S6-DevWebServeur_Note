@@ -1,0 +1,575 @@
+{
+	"info": {
+		"_postman_id": "4f4a6b38-ee51-4a06-84db-31f83ef4beaf",
+		"name": "TP Noté",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41466926"
+	},
+	"item": [
+		{
+			"name": "Utilisateur",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"var token = res.token;\r",
+									"pm.environment.set('rhums_token', token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "arthurbratigny@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "arthurtest",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "arthurbratigny2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "arthurtest2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lastname",
+									"value": "BRATIGNY",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "Arthur",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "arthurbratigny2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "arthurtest2",
+									"type": "text"
+								},
+								{
+									"key": "street",
+									"value": "17 rue Marceau",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Le Mans",
+									"type": "text"
+								},
+								{
+									"key": "postalCode",
+									"value": "72000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{rhums_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ingrédient",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Banane",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "autres",
+									"type": "text"
+								},
+								{
+									"key": "shopAddress",
+									"value": "1 avenue des Champs Élysées",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "price",
+									"value": "250.23",
+									"type": "text"
+								},
+								{
+									"key": "street",
+									"value": "17 rue Marceau",
+									"type": "text"
+								},
+								{
+									"key": "postalCode",
+									"value": "72000",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Le Mans",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/ingredient",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingredient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ingredient",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingredient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find With Filters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ingredient?type=épices&limit=3&page=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingredient"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Banane",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "épices"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Around",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ingredient/around",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ingredient",
+								"around"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rhum",
+			"item": [
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rhum/?distillerie=Clarendon",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rhum",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Jamaica Supreme Lord VIII",
+									"disabled": true
+								},
+								{
+									"key": "distillerie",
+									"value": "Clarendon"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recette",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Recette privée de test",
+									"type": "text"
+								},
+								{
+									"key": "instructions",
+									"value": "Instructions pour la mise en oeuvre de la recette",
+									"type": "text"
+								},
+								{
+									"key": "private",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "rhumId",
+									"value": "676d0e793c9a1a9bdc1a9b79",
+									"type": "text"
+								},
+								{
+									"key": "ingredientIds",
+									"value": "[\"67cacc455507c87452baf2f5\", \"67cacf05e450af603cb09b35\", \"67cacf09e450af603cb09b37\"]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/recette",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"recette"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/recette",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"recette"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Recette privée de test",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Mine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/recette/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"recette",
+								"me"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Recette privée de test",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/recette?name=Recette publique de test",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"recette"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Recette publique de test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Recette pubtest",
+									"type": "text"
+								},
+								{
+									"key": "instructions",
+									"value": "Instructions pour la en oeuvre de la recette",
+									"type": "text"
+								},
+								{
+									"key": "private",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "rhumId",
+									"value": "676d0e793c9a1a9bdc1a9b79",
+									"type": "text"
+								},
+								{
+									"key": "ingredientIds",
+									"value": "[\"67cacf0ce450af603cb09b39\",\"67cacf0ce450af603cb09b39\",\"67cacf0ce450af603cb09b39\"]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/recette/67d2a0e4ff67b303c2a285a2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"recette",
+								"67d2a0e4ff67b303c2a285a2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Géolocalisation",
+			"item": [
+				{
+					"name": "Find By Address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://nominatim.openstreetmap.org/search.php?street=17+rue+marceau&city=Le+Mans&postalcode=72000&format=jsonv2",
+							"protocol": "https",
+							"host": [
+								"nominatim",
+								"openstreetmap",
+								"org"
+							],
+							"path": [
+								"search.php"
+							],
+							"query": [
+								{
+									"key": "street",
+									"value": "17+rue+marceau"
+								},
+								{
+									"key": "city",
+									"value": "Le+Mans"
+								},
+								{
+									"key": "postalcode",
+									"value": "72000"
+								},
+								{
+									"key": "format",
+									"value": "jsonv2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{rhums_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
