@@ -75,3 +75,14 @@ Filtres optionnels en query params:
 - limit (défaut: 10)
 - page (défaut: 1)
 
+### POST /api/v1/recette
+Permet de créer une recette.
+Nécessite un token dans le header Authorization.
+
+Contenu du DTO à envoyer en format x-www-form-urlencoded:
+- id du rhum à ajouter
+- une liste d'id d'ingrédients
+- un nom de recette
+- un champ d'instructions
+- un booléen pour indiquer si la recette est privée ou publique
+
