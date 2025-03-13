@@ -39,4 +39,27 @@ router.get('/', authenticateToken, async function(req, res) {
     });
 });
 
+router.get('/around', authenticateToken, async function(req, res) {
+    let name = req.query.name;
+    let type = req.query.type;
+    let geo = req.user.geo;
+
+    let params = {
+        name: name,
+        type: type,
+    };
+
+    if (geo !== undefined) {
+        params.geo = geo;
+    }
+
+    ingredientController.getListAround(params).then((data) => {
+        let code = data?.code;
+        if (code === undefined) {
+            code = 200;
+        }
+        res.status(code).send(data);
+    });
+});
+
 module.exports = router;

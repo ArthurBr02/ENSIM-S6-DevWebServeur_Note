@@ -33,7 +33,8 @@ Pour les routes ayant un impact sur la base de données, la gestion des codes er
 
 ### POST /api/v1/user/register
 Permet de créer un utilisateur.
-A l'aide des données de localisation, on va récupérer la latitude et la longitude de l'adresse de l'utilisateur.
+
+À l'aide des données de localisation, on va récupérer la latitude et la longitude de l'adresse de l'utilisateur.
 
 Données à envoyer en format x-www-form-urlencoded:
 - email
@@ -47,17 +48,21 @@ Données à envoyer en format x-www-form-urlencoded:
 
 ### POST /api/v1/user/login
 Permet de connecter un utilisateur.
+
 Retourne un objet contenant un token.
+
 Données à envoyer en format x-www-form-urlencoded:
 - email
 - password
 
 ### GET /api/v1/user/me
 Permet de récupérer les informations de l'utilisateur connecté.
+
 Nécessite un token dans le header Authorization.
 
 ### GET /api/v1/ingredient
 Permet de récupérer la liste des ingrédients.
+
 Nécessite un token dans le header Authorization.
 
 Filtres optionnels en query params:
@@ -66,10 +71,23 @@ Filtres optionnels en query params:
 - limit (défaut: 10)
 - page (défaut: 1)
 
+### GET /api/v1/ingredient/around
+Permet de récupérer la liste des ingrédients autour de l'utilisateur connecté.
+
+Si pas de données de localisation pour l'utilisateur, on renvoie tous les ingrédients.
+
+Nécessite un token dans le header Authorization.
+
+Filtres optionnels en query params:
+- name
+- type
+
 ### POST /api/v1/ingredient
 Permet de créer un ingrédient.
+
 Nécessite un token dans le header Authorization.
-A l'aide des données de localisation, on va récupérer la latitude et la longitude de l'adresse de l'ingrédient.
+
+À l'aide des données de localisation, on va récupérer la latitude et la longitude de l'adresse de l'ingrédient.
 
 Données à envoyer en format x-www-form-urlencoded:
 - name
@@ -81,6 +99,7 @@ Données à envoyer en format x-www-form-urlencoded:
 
 ### GET /api/v1/rhum
 Permet de récupérer la liste des rhums.
+
 Nécessite un token dans le header Authorization.
 
 Filtres optionnels en query params:
@@ -97,6 +116,7 @@ Filtres optionnels en query params:
 
 ### POST /api/v1/recette
 Permet de créer une recette.
+
 Nécessite un token dans le header Authorization.
 
 Contenu du DTO à envoyer en format x-www-form-urlencoded:
@@ -108,6 +128,7 @@ Contenu du DTO à envoyer en format x-www-form-urlencoded:
 
 ### GET /api/v1/recette
 Permet de récupérer la liste des recettes publiques.
+
 Nécessite un token dans le header Authorization.
 
 Filtres optionnels en query params:
@@ -117,6 +138,7 @@ Filtres optionnels en query params:
 
 ### GET /api/v1/recette/me
 Permet de récupérer la liste des recettes de l'utilisateur connecté.
+
 Nécessite un token dans le header Authorization.
 
 Filtres optionnels en query params:
@@ -126,6 +148,7 @@ Filtres optionnels en query params:
 
 ### PUT /api/v1/recette/:id
 Permet de modifier une recette.
+
 Nécessite un token dans le header Authorization.
 
 Contenu du DTO à envoyer en format x-www-form-urlencoded:

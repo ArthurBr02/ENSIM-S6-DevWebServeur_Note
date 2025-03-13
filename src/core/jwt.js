@@ -5,7 +5,11 @@ const generateToken = (data) => {
         _id: data._id.toString(),
         firstname: data.firstname,
         lastname: data.lastname,
-        email: data.email
+        email: data.email,
+        street: data.street,
+        city: data.city,
+        postalCode: data.postalCode,
+        geo: data.geo
     }
     let token;
     try {

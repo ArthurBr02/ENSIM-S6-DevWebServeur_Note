@@ -1,4 +1,5 @@
 const db = require("../db/mongo");
+const geoService = require("../services/geoService");
 const getList = async (params) => {
     let filter = {};
     if (params.name !== undefined) {
@@ -33,8 +34,29 @@ const findByIds = async (ids) => {
     });
 }
 
+const getListAround = async (params) => {
+    let filter = {};
+    if (params.name !== undefined) {
+        filter.name = params.name;
+    }
+
+    if (params.type !== undefined) {
+        filter.type = params.type;
+    }
+
+    let list = await db.Ingredient.find(filter);
+    if (params.geo !== undefined) {
+        list = list.filter((ingredient) => {
+            return geoService.isNear(ingredient.geo, params.geo);
+        });
+    }
+
+    return list;
+}
+
 module.exports = {
     getList,
     create,
-    findByIds
+    findByIds,
+    getListAround
 }

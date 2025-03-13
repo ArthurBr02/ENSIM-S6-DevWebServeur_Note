@@ -54,7 +54,12 @@ const getList = async (params) => {
     return ingredientService.getList(params);
 }
 
+const getListAround = async (params) => {
+    return ingredientService.getListAround(params);
+}
+
 module.exports = {
     create,
-    getList
+    getList,
+    getListAround
 }
