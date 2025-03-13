@@ -1,6 +1,7 @@
 const userService = require('../services/user');
 const utils = require('../core/utils');
 const passwordUtils = require('../core/password');
+const geoService = require("../services/geoService");
 
 const register = async (userDTO) => {
 
@@ -21,9 +22,33 @@ const register = async (userDTO) => {
         return utils.asyncError("No password provided");
     }
 
+    if (userDTO.street === undefined) {
+        return utils.asyncError("No street provided");
+    }
+
+    if (userDTO.city === undefined) {
+        return utils.asyncError("No city provided");
+    }
+
+    if (userDTO.postalCode === undefined) {
+        return utils.asyncError("No postal code provided");
+    }
+
     // Hash password
     userDTO.password = await passwordUtils.hashPassword(userDTO.password);
 
+    let geoData = await geoService.findLocalisationByAddress({
+        street: userDTO.street,
+        city: userDTO.city,
+        postalCode: userDTO.postalCode
+    });
+
+    if (geoData !== null && geoData.length > 0) {
+        userDTO.geo = {
+            lat: geoData[0].lat,
+            lon: geoData[0].lon
+        };
+    }
 
     let data = userService.register(userDTO);
     data.then((result) => {

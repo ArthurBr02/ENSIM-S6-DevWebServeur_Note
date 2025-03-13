@@ -33,11 +33,16 @@ Pour les routes ayant un impact sur la base de données, la gestion des codes er
 
 ### POST /api/v1/user/register
 Permet de créer un utilisateur.
+A l'aide des données de localisation, on va récupérer la latitude et la longitude de l'adresse de l'utilisateur.
+
 Données à envoyer en format x-www-form-urlencoded:
 - email
 - password
 - firstname
 - lastname
+- street
+- city
+- postalCode
 
 
 ### POST /api/v1/user/login
@@ -55,15 +60,24 @@ Nécessite un token dans le header Authorization.
 Permet de récupérer la liste des ingrédients.
 Nécessite un token dans le header Authorization.
 
-### POST /api/v1/ingredient
-Permet de créer un ingrédient.
-Nécessite un token dans le header Authorization.
-
-Filtres optionnels en query params: 
+Filtres optionnels en query params:
 - name
 - type
 - limit (défaut: 10)
 - page (défaut: 1)
+
+### POST /api/v1/ingredient
+Permet de créer un ingrédient.
+Nécessite un token dans le header Authorization.
+A l'aide des données de localisation, on va récupérer la latitude et la longitude de l'adresse de l'ingrédient.
+
+Données à envoyer en format x-www-form-urlencoded:
+- name
+- type
+- price
+- street
+- city
+- postalCode
 
 ### GET /api/v1/rhum
 Permet de récupérer la liste des rhums.
