@@ -71,6 +71,7 @@ test('GET ' + route + '/?name=Carotte&limit=1&page=1 should return a list of 1 e
     expect(res.status).toEqual(200);
     expect(res.body[0]).toHaveProperty('name');
     expect(res.body[0].name).toBe('Carotte');
+    expect(res.body.length).toBe(1);
 });
 
 test('GET ' + route + '/around should return a list of ingredients in shops around the user', async () => {

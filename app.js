@@ -24,10 +24,10 @@ app.use(process.env.DEFAULT_API_ROUTE + '/ingredient', require('./src/api/ingred
 app.use(process.env.DEFAULT_API_ROUTE + '/rhum', require('./src/api/rhum'))
 app.use(process.env.DEFAULT_API_ROUTE + '/recette', require('./src/api/recette'))
 
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./src/swagger/swagger.json');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./src/swagger/swagger.json');
 
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 module.exports = {
     app,

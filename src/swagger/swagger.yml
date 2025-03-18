@@ -1,199 +1,344 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: Swagger Pokemon - OpenAPI 3.0
-  description: API REST pour la gestion des pokémons  
-  termsOfService: http://swagger.io/terms/
-  contact:
-    email: apiteam@swagger.io
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
-externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
+  title: API ENSIM-S6-DevWebServeur
+  version: 1.0.0
+  description: API pour le projet de développement web serveur de l'ENSIM en S6.
 servers:
-  - url: http://localhost:3000/api/v1/pokemons
-    description: Serveur local
-    variables:
-      port:
-        default: "3000"
-        description: Port du serveur
-tags:
-  - name: Pokemon
-    description: Récupération des pokémons
-    externalDocs:
-      description: En savoir plus
-      url: https://www.pokepedia.fr/Pok%C3%A9mon_Wiki
+  - url: http://localhost:3001/api/v1 # Remplacez par l'URL de votre serveur
 paths:
-  /pokemons:
-    get:
-      tags:
-        - pokemons
-      summary: Retourne la liste des pokémons
-      description: Retourne la liste des pokémons
-      operationId: getPokemonList
+  /user/register:
+    post:
+      summary: Créer un utilisateur
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                street:
+                  type: string
+                city:
+                  type: string
+                postalCode:
+                  type: string
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pokemon'          
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pokemon'
+          description: Utilisateur créé avec succès
         '400':
-          description: Invalid status value
-  /pokemons/{pokemonId}:
-    get: 
-      tags: 
-        - pokemons
-      summary: Retourne un pokémon par son ID
-      description: Retourne un pokémon par son ID
-      operationId: getPokemonById
+          description: Données invalides
+        '500':
+          description: Erreur serveur
+  /user/login:
+    post:
+      summary: Connecter un utilisateur
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Connexion réussie, retourne un token
+        '401':
+          description: Identifiants invalides
+        '500':
+          description: Erreur serveur
+  /user/me:
+    get:
+      summary: Récupérer les informations de l'utilisateur connecté
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Informations de l'utilisateur
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+  /ingredient:
+    get:
+      summary: Récupérer la liste des ingrédients
+      security:
+        - bearerAuth: []
       parameters:
-        - name: pokemonId
-          in: path
-          description: ID du pokémon à retourner
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: Liste des ingrédients
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+    post:
+      summary: Créer un ingrédient
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                price:
+                  type: number
+                street:
+                  type: string
+                city:
+                  type: string
+                postalCode:
+                  type: string
+      responses:
+        '200':
+          description: Ingrédient créé avec succès
+        '400':
+          description: Données invalides
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+  /ingredient/around:
+    get:
+      summary: Récupérer les ingrédients autour de l'utilisateur
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Liste des ingrédients
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+  /rhum:
+    get:
+      summary: Récupérer la liste des rhums
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: pays
+          schema:
+            type: string
+        - in: query
+          name: volume
+          schema:
+            type: number
+        - in: query
+          name: degre
+          schema:
+            type: number
+        - in: query
+          name: distillerie
+          schema:
+            type: string
+        - in: query
+          name: categories
+          schema:
+            type: string
+        - in: query
+          name: embouteilleur
+          schema:
+            type: string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: Liste des rhums
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+  /recette:
+    get:
+      summary: Récupérer la liste des recettes publiques
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: Liste des recettes publiques
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+    post:
+      summary: Créer une recette
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                rhumId:
+                  type: integer
+                ingredientIds:
+                  type: array
+                  items:
+                    type: integer
+                name:
+                  type: string
+                instructions:
+                  type: string
+                isPrivate:
+                  type: boolean
+      responses:
+        '200':
+          description: Recette créée avec succès
+        '400':
+          description: Données invalides
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+  /recette/me:
+    get:
+      summary: Récupérer les recettes de l'utilisateur
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: Liste des recettes de l'utilisateur
+        '401':
+          description: Non autorisé
+        '500':
+          description: Erreur serveur
+  /recette/{id}:
+    put:
+      summary: Modifier une recette
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
           required: true
           schema:
             type: integer
-            format: int64
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                rhumId:
+                  type: integer
+                ingredientIds:
+                  type: array
+                  items:
+                    type: integer
+                name:
+                  type: string
+                instructions:
+                  type: string
+                isPrivate:
+                  type: boolean
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pokemon'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pokemon'
+          description: Recette modifiée avec succès
         '400':
-          description: Invalid ID supplied
+          description: Données invalides
+        '401':
+          description: Non autorisé
         '404':
-          description: Pokémon non trouvé
-  /pokemons/search:
-    get:
-      tags:
-        - pokemons
-      summary: Recherche de pokémon
-      description: Recherche de pokémon
-      operationId: getPokemonByFilter
-      parameters:
-        - name: name
-          in: query
-          description: Nom français du pokémon
-          required: false
-          explode: true
-          schema:
-            type: string
-            default: Dardargnan
-        - name: type
-          in: query
-          description: Type du pokémon
-          required: false
-          explode: true
-          schema:
-            type: string
-            default: Bug
-        - name: typeS
-          in: query
-          description: Type secondaire du pokémon
-          required: false
-          explode: true
-          schema:
-            type: string
-            default: Poison
-        - name: hp
-          in: query
-          description: HP du pokémon
-          required: false
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            default: 65
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pokemon'          
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pokemon'
-        '400':
-          description: Invalid status value
+          description: Recette non trouvée
+        '500':
+          description: Erreur serveur
 components:
-  schemas:
-    Pokemon:
-      type: object
-      properties: 
-        id: 
-          type: integer
-          format: int64
-          example: 15
-        name:
-          type: object
-          properties:
-            english:
-              type: string
-              example: Beedrill
-            japanese:
-              type: string
-              example: スピアー
-            chinese:
-              type: string
-              example: 大针蜂
-            french:
-              type: string
-              example: Dardargnan
-        type:
-          type: array
-          items:
-            type: string
-          example: 
-            - Bug
-            - Poison
-        base:
-          type: object
-          properties:
-            HP:
-              type: integer
-              example: 65
-            Attack:
-              type: integer
-              example: 90
-            Defense:
-              type: integer
-              example: 40
-            SpAttack:
-              type: integer
-              example: 45
-            SpDefense:
-              type: integer
-              example: 80
-            Speed:
-              type: integer
-              example: 75
-  requestBodies:
-    Pokemon:
-      description: Pokemon object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Pokemon'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Pokemon'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
