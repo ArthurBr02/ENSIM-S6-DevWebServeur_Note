@@ -27,9 +27,20 @@ Dans le fichier .env configurer les différentes variables d'environnement.
 
 ## Dépendances
 
+## Tests
+Des tests d'API on été effectués sur les routes des API user, rhum et ingredient.
+
+Pour les lancer, exécuter:
+```bash
+npm test
+```
+
 ## Routes
 
 Pour les routes ayant un impact sur la base de données, la gestion des codes erreur est faite via le fichier *src/core/utils.js*
+
+### Swagger
+Le swagger est accessible sur la route suivante: /api-docs
 
 ### POST /api/v1/user/register
 Permet de créer un utilisateur.
