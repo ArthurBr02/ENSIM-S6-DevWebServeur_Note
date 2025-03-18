@@ -1,6 +1,6 @@
 <script>
 import Button from 'primevue/button'
-import {InputText} from "primevue";
+import InputText from "primevue/inputtext";
 
 export default {
   components: {
@@ -19,11 +19,4 @@ export default {
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
 </style>

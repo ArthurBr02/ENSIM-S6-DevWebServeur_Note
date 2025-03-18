@@ -17,6 +17,7 @@ const Rhum = db.model("rhums", RhumSchema);
 const Recette = db.model("abr_recettes", RecetteSchema);
 
 module.exports = {
+    db,
     User,
     Ingredient,
     Rhum,

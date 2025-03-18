@@ -1,4 +1,4 @@
-@import './base.css';
+@import "tailwindcss";
 
 #app {
   max-width: 1280px;
@@ -29,7 +29,16 @@ a,
 
   #app {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /*grid-template-columns: 1fr 1fr;*/
     padding: 0 2rem;
   }
+}
+
+.p-component {
+  background: white !important;
+  color: black !important;
+}
+
+body {
+  background: #dedede;
 }
