@@ -1,4 +1,5 @@
 const db = require("../db/mongo");
+const debug = require("debug");
 const rhumService = require("./rhum");
 const {findByIds} = require("./ingredient");
 const utils = require("../core/utils");
@@ -62,7 +63,7 @@ const create = async (recetteDTO) => {
     data.then((result) => {
         return result;
     }).catch((err) => {
-        console.log(err);
+        debug.log(err);
         return err;
     });
 }
@@ -96,7 +97,7 @@ const update = async (recetteDTO) => {
     data.then((result) => {
         return result;
     }).catch((err) => {
-        console.log(err);
+        debug.log(err);
         return err;
     });
 }

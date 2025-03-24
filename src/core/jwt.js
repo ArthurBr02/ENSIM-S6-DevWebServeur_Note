@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const debug = require("debug");
 
 const generateToken = (data) => {
     let formatedData = {
@@ -15,7 +16,7 @@ const generateToken = (data) => {
     try {
         token = jwt.sign(formatedData, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRATION});
     } catch (error) {
-        console.log("Error while generating token: ", error);
+        debug.log(`Error while generating token: ${error}`);
     }
     return {token: token};
 }
@@ -28,7 +29,7 @@ const authenticateToken = (req, res, next) => {
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
-            console.log(err)
+            debug.log(err)
             return res.sendStatus(403);
         }
         req.user = user;
