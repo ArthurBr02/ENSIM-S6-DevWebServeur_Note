@@ -7,6 +7,7 @@ const password = require('../src/core/password')
 
 const route = process.env.DEFAULT_API_ROUTE + '/rhum'
 let tokenData;
+let userId;
 
 beforeAll(async () => {
     let random = Math.floor(Math.random() * 1000000);
@@ -16,6 +17,7 @@ beforeAll(async () => {
 
     await userService.register(payload).then((result) => {
         debug.log(result);
+        userId = result._id;
     }).catch((err) => {
         debug.log(err);
     });
@@ -34,4 +36,10 @@ test('GET ' + route + '/?distillerie=Clarendon should return a list of 3 rhums f
     expect(res.body.length).toBe(3);
     expect(res.body[0]).toHaveProperty('distillerie');
     expect(res.body[0].distillerie).toBe('Clarendon');
+});
+
+afterAll(async () => {
+    await userService.deleteUser(userId).then((result) => {
+        debug.log(result);
+    });
 });

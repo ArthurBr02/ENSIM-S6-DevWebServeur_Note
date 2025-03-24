@@ -7,6 +7,7 @@ const password = require("../src/core/password");
 
 const route = process.env.DEFAULT_API_ROUTE + '/ingredient'
 let tokenData;
+let userId;
 
 beforeAll(async () => {
     let random = Math.floor(Math.random() * 1000000);
@@ -14,9 +15,16 @@ beforeAll(async () => {
 
     payload.password = await password.hashPassword(payload.password);
 
-    await userService.register(payload);
+    await userService.register(payload).then((result) => {
+        debug.log(result);
+        userId = result._id;
+    });
     tokenData = await userService.login({email: `arthurbratigny+${random}@gmail.com`, password: 'arthurtest'});
     //debug.log(tokenData);
+});
+
+afterAll(async () => {
+    await userService.deleteUser(userId);
 });
 
 test('POST ' + route + '/ should create a new ingredient', async () => {

@@ -42,8 +42,18 @@ const login = async (loginDTO) => {
     return jwtUtils.generateToken(data);
 }
 
+const deleteUser = async (id) => {
+    await db.User.findByIdAndDelete(id)
+    .then((result) => {
+        return result;
+    }).catch((err) => {
+        return err;
+    });
+}
+
 module.exports = {
     getList,
     register,
-    login
+    login,
+    deleteUser
 }
