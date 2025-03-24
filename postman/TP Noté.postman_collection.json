@@ -88,7 +88,7 @@
 								},
 								{
 									"key": "email",
-									"value": "arthurbratigny2@gmail.com",
+									"value": "arthurbratigny32@gmail.com",
 									"type": "text"
 								},
 								{
@@ -191,16 +191,34 @@
 								{
 									"key": "street",
 									"value": "17 rue Marceau",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "postalCode",
 									"value": "72000",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "city",
 									"value": "Le Mans",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "street",
+									"value": "4 rue henri barbusse",
+									"type": "text"
+								},
+								{
+									"key": "postalCode",
+									"value": "91120",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "palaiseau",
 									"type": "text"
 								}
 							]
@@ -531,6 +549,35 @@
 								{
 									"key": "format",
 									"value": "jsonv2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Global",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/global/search?name=ba",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"global",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "ba"
 								}
 							]
 						}
