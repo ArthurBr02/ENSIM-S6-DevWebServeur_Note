@@ -2,12 +2,21 @@ const { app } = require('../app.js');
 const supertest = require('supertest');
 const requestWithSupertest = supertest(app);
 const userService = require('../src/services/user');
+const debug = require('debug');
+const password = require("../src/core/password");
 
 const route = process.env.DEFAULT_API_ROUTE + '/ingredient'
 let tokenData;
 
 beforeAll(async () => {
-   tokenData = await userService.login({email: 'arthurbratigny@gmail.com', password: 'arthurtest'});
+    let random = Math.floor(Math.random() * 1000000);
+    const payload = {email: `arthurbratigny+${random}@gmail.com`, password: 'arthurtest', firstname: 'Arthur', lastname: 'Bratigny', street: "17 rue Marceau", city: "Le Mans", postalCode: "72000" };
+
+    payload.password = await password.hashPassword(payload.password);
+
+    await userService.register(payload);
+    tokenData = await userService.login({email: `arthurbratigny+${random}@gmail.com`, password: 'arthurtest'});
+    //debug.log(tokenData);
 });
 
 test('POST ' + route + '/ should create a new ingredient', async () => {

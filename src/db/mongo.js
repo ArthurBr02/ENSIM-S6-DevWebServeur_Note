@@ -12,10 +12,10 @@ db.connect(process.env.MONGO_URI).then(() => {
     debug.log("Connected to mongodb");
 });
 
-const User = db.model("abr_users", UserSchema);
-const Ingredient = db.model("abr_ingredients", IngredientSchema);
+const User = db.model("abr2_users", UserSchema);
+const Ingredient = db.model("abr2_ingredients", IngredientSchema);
 const Rhum = db.model("rhums", RhumSchema);
-const Recette = db.model("abr_recettes", RecetteSchema);
+const Recette = db.model("abr2_recettes", RecetteSchema);
 
 module.exports = {
     db,
