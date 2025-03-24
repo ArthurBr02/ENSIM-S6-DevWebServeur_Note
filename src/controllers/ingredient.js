@@ -1,6 +1,6 @@
 const ingredientService = require('../services/ingredient');
 const utils = require('../core/utils');
-const geoService = require("../services/geoService");
+const geoService = require("../services/geo");
 const create = async (ingredientDTO) => {
 
     // Check data integrity

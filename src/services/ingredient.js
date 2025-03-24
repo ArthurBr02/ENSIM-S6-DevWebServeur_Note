@@ -1,5 +1,5 @@
 const db = require("../db/mongo");
-const geoService = require("../services/geoService");
+const geoService = require("./geo");
 const getList = async (params) => {
     let filter = {};
     if (params.name !== undefined) {
@@ -54,9 +54,20 @@ const getListAround = async (params) => {
     return list;
 }
 
+const search = async (name) => {
+    let ingredients = await db.Ingredient.find({
+        name: {
+            $regex: name,
+            $options: 'i'
+        }
+    });
+    return ingredients;
+}
+
 module.exports = {
     getList,
     create,
     findByIds,
-    getListAround
+    getListAround,
+    search
 }

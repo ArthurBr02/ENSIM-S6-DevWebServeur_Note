@@ -26,6 +26,27 @@ Copier le .env.exemple en .env
 Dans le fichier .env configurer les différentes variables d'environnement.
 
 ## Dépendances
+Le projet utilise les dépendances suivantes :
+
+### Dépendances de production 
+- axios : ^1.8.3
+- bcrypt : ^5.1.1
+- body-parser : ^1.20.3
+- cors : ^2.8.5
+- debug : ^4.4.0
+- dotenv : ^16.4.7
+- express : ^4.21.2
+- jsonwebtoken : ^9.0.2
+- mongoose : ^8.9.5
+- nodemon : ^3.1.9
+- swagger-ui-express : ^5.0.1
+
+### Dépendances de développement
+- autoprefixer : ^10.4.21
+- cross-env : ^7.0.3
+- jest : ^29.7.0
+- supertest : ^7.0.0
+- tailwindcss : ^3.4.17
 
 ## Tests
 Des tests d'API on été effectués sur les routes des API user, rhum et ingredient.
@@ -168,3 +189,11 @@ Contenu du DTO à envoyer en format x-www-form-urlencoded:
 - un nom de recette
 - un champ d'instructions
 - un booléen pour indiquer si la recette est privée ou publique
+
+### GET /api/v1/global/search
+Permet de rechercher des ingrédients, rhums et recettes par nom avec autocomplétion.
+
+Nécessite un token dans le header Authorization.
+
+Paramètre en query params:
+- name

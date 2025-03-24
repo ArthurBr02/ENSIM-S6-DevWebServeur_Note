@@ -102,9 +102,20 @@ const update = async (recetteDTO) => {
     });
 }
 
+const search = async (name) => {
+    let recettes = await db.Recette.find({
+        nom: {
+            $regex: name,
+            $options: 'i'
+        }
+    });
+    return recettes;
+}
+
 module.exports = {
     getList,
     create,
     findById,
-    update
+    update,
+    search
 }

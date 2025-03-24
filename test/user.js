@@ -24,5 +24,4 @@ test('POST ' + route + '/login should return a token', async () => {
     expect(res.status).toEqual(200);
     expect(res.type).toEqual(expect.stringContaining('json'));
     expect(res.body).toHaveProperty('token');
-    // expect(res.body.name.token).toBe('Dracaufeu');
 });

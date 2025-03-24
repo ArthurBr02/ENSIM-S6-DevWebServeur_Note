@@ -44,7 +44,18 @@ const findById = async (id) => {
     return db.Rhum.findById(id);
 }
 
+const search = async (name) => {
+    let rhums = await db.Rhum.find({
+        name: {
+            $regex: name,
+            $options: 'i'
+        }
+    });
+    return rhums;
+}
+
 module.exports = {
     getList,
-    findById
+    findById,
+    search
 }

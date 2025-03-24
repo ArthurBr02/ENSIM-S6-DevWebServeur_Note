@@ -562,6 +562,95 @@
           }
         }
       }
+    },
+    "/global/search": {
+      "get": {
+        "summary": "Rechercher des ingrédients, rhums et recettes par nom avec autocomplétion",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Nom à rechercher"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultats de la recherche",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ingredients": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                          "properties": {
+                          "id": {
+                              "type": "integer"
+                          },
+                          "name": {
+                              "type": "string"
+                          },
+                          "type": {
+                              "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "rhums": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                              "type": "integer"
+                          },
+                          "name": {
+                              "type": "string"
+                          },
+                          "type": {
+                              "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "recettes": {
+                      "type": "array",
+                      "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                          }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé"
+          },
+          "500": {
+            "description": "Erreur serveur"
+          }
+        }
+      }
     }
   },
   "components": {

@@ -1,7 +1,7 @@
 const userService = require('../services/user');
 const utils = require('../core/utils');
 const passwordUtils = require('../core/password');
-const geoService = require("../services/geoService");
+const geoService = require("../services/geo");
 
 const register = async (userDTO) => {
 
