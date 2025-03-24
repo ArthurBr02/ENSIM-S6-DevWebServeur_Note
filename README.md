@@ -56,6 +56,16 @@ Pour les lancer, exécuter:
 npm test
 ```
 
+## Déploiement
+URL pour tester l'API déployée: http://146.59.150.89:3000/api-docs/#/
+
+Pour procéder au déploiement, il faut:
+- Installer Node.js
+- Cloner le projet
+- Installer les dépendances avec la commande `npm install`
+- Lancer le serveur avec la commande `npm start` (je l'ai lancé dans un screen pour qu'il fonctionne en arrière plan)
+- Ouvrir le port 3000 sur le serveur pour que l'API soit accessible
+
 ## Routes
 
 Pour les routes ayant un impact sur la base de données, la gestion des codes erreur est faite via le fichier *src/core/utils.js*
